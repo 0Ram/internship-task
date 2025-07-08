@@ -1,6 +1,7 @@
 {
   "version": 2,
-  "builds": [],
-  "routes": [],
+  "routes": [
+    { "src": "/", "dest": "/demo.html" }
+  ],
   "outputDirectory": "candidate-00X-romalore-module-main"
 }
