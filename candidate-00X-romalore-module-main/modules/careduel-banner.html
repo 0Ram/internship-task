@@ -1,0 +1,48 @@
+<section class="careduel-banner">
+  <div class="banner-content">
+    <h2>Topic of the Week</h2>
+    <p>Join this week's kindness challenge and reflect on real-world dilemmas</p>
+    <a href="https://careduel.com/topic-of-the-week" class="button">Learn More</a>
+  </div>
+</section>
+
+<style>
+  .careduel-banner {
+    background-color: var(--off-white);
+    border: 2px solid var(--accent-maroon);
+    color: var(--primary-gold);
+    padding: 2rem;
+    margin: 2rem 0;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .careduel-banner::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: url('assets/textures/parchment-texture.jpg') center/cover;
+    opacity: 0.1;
+    z-index: 0;
+  }
+  
+  .careduel-banner .banner-content {
+    position: relative;
+    z-index: 1;
+  }
+  
+  .careduel-banner h2 {
+    color: var(--primary-gold);
+    margin-bottom: 1rem;
+  }
+  
+  .careduel-banner p {
+    color: var(--accent-maroon);
+    max-width: 600px;
+    margin: 0 auto 1.5rem;
+  }
+</style>

@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Stripe Test</title>
+</head>
+<body>
+  <button id="stripe-payment-button">Pay $1</button>
+
+  <script src="https://js.stripe.com/v3/"></script>
+  <script>
+    const stripe = Stripe('pk_test_51RieBc4NCYg7wrdzVrP1BrzLRrH7z5dKdfPXSmNvMoyuV3eTHTrElOKOrr2wp5AlGxjjM0wHsYtQPK7EbXJ0EJ8R00IaeErdgY');
+
+    document.getElementById('stripe-payment-button').addEventListener('click', async () => {
+      try {
+        const response = await fetch('http://localhost:4242/api/create-checkout-session', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+        });
+
+        const data = await response.json();
+
+        if (data.id) {
+          await stripe.redirectToCheckout({ sessionId: data.id });
+        } else {
+          alert("Session creation failed");
+        }
+      } catch (error) {
+        console.error("Error during Stripe session:", error);
+        alert("Something went wrong");
+      }
+    });
+  </script>
+</body>
+</html>

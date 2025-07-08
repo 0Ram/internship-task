@@ -1,0 +1,206 @@
+:root {
+  /* Color Variables */
+  --primary-gold: #B8860B;
+  --accent-maroon: #800000;
+  --cream: #F5F5DC;
+  --off-white: #FAF9F6;
+  --parchment-gray: #E9E5D9;
+  --primary-color: var(--primary-gold);
+  --accent-color: var(--accent-maroon);
+  
+  /* Typography */
+  --font-body: 'Lora', serif;
+  --font-heading: 'Playfair Display', serif;
+  
+  /* Spacing */
+  --space-sm: 0.5rem;
+  --space-md: 1rem;
+  --space-lg: 2rem;
+}
+
+/* Base Styles */
+body {
+  font-family: var(--font-body);
+  background-color: var(--off-white);
+  color: #333;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+
+h1, h2, h3, h4 {
+  font-family: var(--font-heading);
+  color: var(--accent-maroon);
+  margin-top: 0;
+}
+
+/* UI Components */
+.button {
+  border: 2px solid var(--primary-gold);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  color: var(--accent-maroon);
+  font-family: var(--font-body);
+  cursor: pointer;
+  transition: all 0.3s ease;
+  position: relative;
+  overflow: hidden;
+  display: inline-block;
+  text-decoration: none;
+  text-align: center;
+}
+
+.button:hover {
+  color: var(--primary-gold);
+  border-color: var(--accent-maroon);
+}
+
+.button::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    transparent, 
+    rgba(184, 134, 11, 0.2), 
+    transparent
+  );
+  transition: all 0.5s ease;
+}
+
+.button:hover::after {
+  left: 100%;
+}
+
+/* Layout Utilities */
+.masonry-grid {
+  display: grid;
+  grid-gap: var(--space-md);
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  grid-auto-rows: masonry;
+}
+
+.parallax {
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  position: relative;
+}
+
+/* ================
+   Disabled Link Styles
+   ================ */
+/* Applies to all external demo links */
+a[href*="top216.com"],
+a[href*="thetop36.com"],
+a[href*="careduel.com"] {
+  /* Visual styling */
+  opacity: 0.7;
+  color: var(--accent-maroon);
+  text-decoration: none;
+  position: relative;
+  
+  /* Disable interaction */
+  pointer-events: none;
+  cursor: not-allowed;
+  
+  /* Add disabled indicator */
+  border-bottom: 1px dashed var(--primary-gold);
+}
+
+/* Special styling for button-style links */
+a[href*="top216.com"].button,
+a[href*="thetop36.com"].button,
+a[href*="careduel.com"].button {
+  background: var(--parchment-gray);
+  border-color: var(--parchment-gray);
+  color: var(--accent-maroon);
+}
+
+/* Tooltip for explaining disabled state */
+a[href*="top216.com"]::after,
+a[href*="thetop36.com"]::after,
+a[href*="careduel.com"]::after {
+  content: "Demo Link - Not Functional";
+  position: absolute;
+  left: 0;
+  top: 100%;
+  background: var(--accent-maroon);
+  color: white;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 0.75rem;
+  white-space: nowrap;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 100;
+  margin-top: 5px;
+}
+
+/* Show tooltip on hover */
+a[href*="top216.com"]:hover::after,
+a[href*="thetop36.com"]:hover::after,
+a[href*="careduel.com"]:hover::after {
+  opacity: 1;
+}
+
+/* Stripe Payment Styles */
+.payment-section {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 2rem;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  border: 1px solid var(--accent-maroon);
+}
+
+.payment-button {
+  background: var(--primary-gold);
+  color: var(--off-white);
+  border: none;
+  padding: 0.8rem 1.5rem;
+  font-size: 1rem;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1rem;
+  font-family: var(--font-body);
+}
+
+.payment-button:hover {
+  background: var(--accent-maroon);
+  transform: translateY(-2px);
+}
+
+.payment-button:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.payment-message {
+  margin-top: 1.5rem;
+  padding: 0.8rem;
+  border-radius: 4px;
+  display: none;
+}
+
+.payment-message.success {
+  display: block;
+  background: rgba(40, 167, 69, 0.1);
+  color: #28a745;
+  border: 1px solid #28a745;
+}
+
+.payment-message.error {
+  display: block;
+  background: rgba(220, 53, 69, 0.1);
+  color: #dc3545;
+  border: 1px solid #dc3545;
+}

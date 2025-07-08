@@ -1,0 +1,117 @@
+<section class="awards-section">
+  <div class="container">
+    <h2 class="section-heading">Awards Panels</h2>
+    <div class="awards-grid">
+      <!-- Top216 Card -->
+      <article class="award-card">
+        <div class="award-icon">🏆</div>
+        <h3 class="award-title">Vote Top216</h3>
+        <p class="award-description">A global people's choice award ranking inspiring changemakers...</p>
+        <a href="https://top216.com/vote" class="award-button" target="_blank">
+          Vote Now <span class="external-tag">External</span>
+        </a>
+      </article>
+
+      <!-- TheTop36 Card -->
+      <article class="award-card">
+        <div class="award-icon">🎁</div>
+        <h3 class="award-title">Explore TheTop36</h3>
+        <p class="award-description">A digital raffle and rewards platform featuring premium content...</p>
+        <a href="https://thetop36.com/highlights" class="award-button" target="_blank">
+          Explore <span class="external-tag">External</span>
+        </a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  /* Awards Section */
+  .awards-section {
+    padding: 3rem 1rem;
+    background-color: var(--off-white);
+  }
+
+  .container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 1rem;
+  }
+
+  .section-heading {
+    text-align: center;
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-maroon);
+    font-size: 2rem;
+    margin-bottom: 2.5rem;
+  }
+
+  .awards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    justify-content: center;
+  }
+
+  .award-card {
+    background: white;
+    border: 2px solid var(--accent-maroon);
+    border-radius: 8px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+  }
+
+  .award-card:hover {
+    border-color: var(--primary-gold);
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+  }
+
+  .award-icon {
+    font-size: 3rem;
+    margin-bottom: 1rem;
+    color: var(--primary-gold);
+  }
+
+  .award-card h3 {
+    font-family: 'Playfair Display', serif;
+    color: var(--accent-maroon);
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+  }
+
+  .award-card p {
+    color: #555;
+    margin-bottom: 1.5rem;
+    line-height: 1.6;
+  }
+
+  .award-button {
+    display: inline-block;
+    padding: 0.7rem 1.8rem;
+    background: var(--primary-gold);
+    color: white;
+    border-radius: 4px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 2px solid var(--primary-gold);
+  }
+
+  .award-button:hover {
+    background: var(--accent-maroon);
+    border-color: var(--accent-maroon);
+  }
+
+  /* Responsive */
+  @media (max-width: 768px) {
+    .awards-grid {
+      grid-template-columns: 1fr;
+    }
+    
+    .award-card {
+      padding: 1.5rem;
+    }
+  }
+</style>
