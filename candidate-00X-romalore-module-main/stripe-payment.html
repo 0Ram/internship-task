@@ -2,17 +2,92 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>Stripe Test</title>
+  <title>RomeLore - Stripe Payment</title>
+  <style>
+    body {
+      font-family: 'Lora', serif;
+      background-color: #FFFDF5; /* Parchment background */
+      color: #333;
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+    
+    #stripe-payment-button {
+      background-color: #B8860B; /* Brand gold */
+      color: white;
+      border: none;
+      padding: 12px 24px;
+      font-size: 16px;
+      font-family: 'Playfair Display', serif;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+    
+    #stripe-payment-button:hover {
+      background-color: #800000; /* Brand maroon */
+      transform: translateY(-2px);
+    }
+    
+    #stripe-payment-button:disabled {
+      opacity: 0.7;
+      cursor: not-allowed;
+      transform: none;
+    }
+    
+    .payment-message {
+      margin-top: 1rem;
+      padding: 1rem;
+      border-radius: 4px;
+    }
+    
+    .error {
+      background-color: #FFEBEE;
+      color: #B71C1C;
+      border: 1px solid #EF9A9A;
+    }
+    
+    .processing::after {
+      content: '...';
+      animation: dots 1.5s steps(5, end) infinite;
+    }
+    
+    @keyframes dots {
+      0%, 20% { content: '.'; }
+      40% { content: '..'; }
+      60%, 100% { content: '...'; }
+    }
+  </style>
 </head>
 <body>
-  <button id="stripe-payment-button">Pay $1</button>
+  <h2>Stripe Payment Integration</h2>
+  <p>Test the payment flow with the button below:</p>
+  
+  <button id="stripe-payment-button">
+    Proceed to Payment (USD 1)
+  </button>
+  
+  <div id="payment-message" class="payment-message"></div>
 
   <script src="https://js.stripe.com/v3/"></script>
   <script>
     const stripe = Stripe('pk_test_51RieBc4NCYg7wrdzVrP1BrzLRrH7z5dKdfPXSmNvMoyuV3eTHTrElOKOrr2wp5AlGxjjM0wHsYtQPK7EbXJ0EJ8R00IaeErdgY');
+    const paymentButton = document.getElementById('stripe-payment-button');
+    const messageEl = document.getElementById('payment-message');
 
-    document.getElementById('stripe-payment-button').addEventListener('click', async () => {
+    paymentButton.addEventListener('click', async () => {
       try {
+        // Clear previous messages
+        messageEl.textContent = '';
+        messageEl.className = 'payment-message';
+        
+        // Show loading state
+        paymentButton.disabled = true;
+        paymentButton.classList.add('processing');
+        paymentButton.textContent = 'Processing';
+
+        // Create checkout session
         const response = await fetch('http://localhost:4242/api/create-checkout-session', {
           method: 'POST',
           headers: {
@@ -20,16 +95,33 @@
           },
         });
 
-        const data = await response.json();
-
-        if (data.id) {
-          await stripe.redirectToCheckout({ sessionId: data.id });
-        } else {
-          alert("Session creation failed");
+        if (!response.ok) {
+          throw new Error(`Server responded with ${response.status}`);
         }
+
+        const session = await response.json();
+
+        if (!session?.id) {
+          throw new Error('Invalid session ID received');
+        }
+
+        // Redirect to Stripe Checkout
+        const result = await stripe.redirectToCheckout({
+          sessionId: session.id
+        });
+
+        if (result.error) {
+          throw result.error;
+        }
+
       } catch (error) {
-        console.error("Error during Stripe session:", error);
-        alert("Something went wrong");
+        console.error("Payment error:", error);
+        messageEl.textContent = error.message || 'Payment failed. Please try again.';
+        messageEl.className = 'payment-message error';
+      } finally {
+        paymentButton.disabled = false;
+        paymentButton.classList.remove('processing');
+        paymentButton.textContent = 'Proceed to Payment (USD 1)';
       }
     });
   </script>
